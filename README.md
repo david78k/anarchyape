@@ -7,6 +7,7 @@ Fault injection tool for hadoop cluster from yahoo anarchyape
 Compilation 
 -----------
 
+[Java]
 ```
 cd src/main/java
 download log4j.ar and commons-cli.jar
@@ -14,8 +15,22 @@ download log4j.ar and commons-cli.jar
 javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 ```
 
+[Perl]
+```
+   perl Makefile.PL
+   cpan -i JSON
+   make
+   make test
+   make install
+```
+
 Running 
 -------
+
+[Perl]
+./ape.pl [remote_ip_list_file]
+
+[Java]
 
 ```
 java -cp .:log4j-1.4.12.jar apr/Main
