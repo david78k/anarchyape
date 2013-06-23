@@ -6,7 +6,6 @@ Fault injection tool for hadoop cluster from yahoo anarchyape
 
 Compilation 
 -----------
-
 [Java]
 ```
 cd src/main/java
@@ -26,12 +25,10 @@ javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 
 Running 
 -------
-
 [Perl]
 ./ape.pl [remote_ip_list_file]
 
 [Java]
-
 ```
 java -cp .:log4j-1.4.12.jar apr/Main
 
