@@ -29,11 +29,9 @@ ures to be simulated, one after another. A sample line in a
 scenario file could be as follows:
 
 ```
-java -jar ape.jar -remote cluster-ip-list.xml
--fb lambda -k lambda
-where the -fb is a “Fork Bomb” injection, the -k is a “Kill
-One Node” command, and the lambda specifies the failure
-rates.
+java -jar ape.jar -remote cluster-ip-list.xml -fb lambda -k lambda
+	where the -fb is a “Fork Bomb” injection, the -k is a “Kill
+	One Node” command, and the lambda specifies the failure rates.
 ```
 Users can define lambda parameters by computing Mean
 Time Between Failures (MTBF) of a system. MTBF is de-
