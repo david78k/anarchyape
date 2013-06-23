@@ -37,12 +37,15 @@ Users can define lambda parameters by computing Mean
 Time Between Failures (MTBF) of a system. MTBF is de-
 fined to be the average (or expected) lifetime of a system
 and is one of the key decision-making criteria for data cen-
-ter infrastructure systems [20]. Equipment in data centers
+ter infrastructure systems [1]. Equipment in data centers
 is going to fail, and MTBF helps with predicting which sys-
 tems are the likeliest to fail at any given moment. Based on
 previous failure statistics, users can develop an estimate of
 MTBF for various equipment failures; however, determining
 MTBFs for many software failures is challenging.
+
+[1] W. Torell and V. Avelar. Performing effective MTBF comparisons for data center infrastructure.
+http://www.apcmedia.com/salestools/ASTE-5ZYQF2_R1_EN.pdf.
 
 Available Commands 
 ------------------
