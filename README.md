@@ -34,12 +34,9 @@ java -jar ape.jar -remote cluster-ip-list.xml -fb lambda -k lambda
 	One Node” command, and the lambda specifies the failure rates.
 ```
 Users can define lambda parameters by computing Mean
-Time Between Failures (MTBF) of a system. MTBF is de-
-fined to be the average (or expected) lifetime of a system
-and is one of the key decision-making criteria for data cen-
-ter infrastructure systems [1]. Equipment in data centers
-is going to fail, and MTBF helps with predicting which sys-
-tems are the likeliest to fail at any given moment. Based on
+Time Between Failures (MTBF) of a system. MTBF is defined to be the average (or expected) lifetime of a system
+and is one of the key decision-making criteria for data center infrastructure systems [1]. Equipment in data centers
+is going to fail, and MTBF helps with predicting which systems are the likeliest to fail at any given moment. Based on
 previous failure statistics, users can develop an estimate of
 MTBF for various equipment failures; however, determining
 MTBFs for many software failures is challenging.
