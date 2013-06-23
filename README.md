@@ -1,4 +1,4 @@
-anarchyape
+AnarchyApe
 ==========
 
 Fault injection tool for hadoop cluster from yahoo anarchyape
@@ -12,8 +12,8 @@ cd src/main/java
 download log4j.ar and commons-cli.jar
 
 javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
-
 ```
+
 Running 
 -------
 
@@ -21,16 +21,20 @@ Running
 java -cp .:log4j-1.4.12.jar apr/Main
 
 log file: /var/log/ape.log
+```
 
 Currently, to create a scenario, the user constructs a shell
 script specifying the types of errors to be injected or fail-
 ures to be simulated, one after another. A sample line in a
 scenario file could be as follows:
+
+```
 java -jar ape.jar -remote cluster-ip-list.xml
 -fb lambda -k lambda
 where the -fb is a “Fork Bomb” injection, the -k is a “Kill
 One Node” command, and the lambda specifies the failure
 rates.
+```
 Users can define lambda parameters by computing Mean
 Time Between Failures (MTBF) of a system. MTBF is de-
 fined to be the average (or expected) lifetime of a system
@@ -41,9 +45,8 @@ tems are the likeliest to fail at any given moment. Based on
 previous failure statistics, users can develop an estimate of
 MTBF for various equipment failures; however, determining
 MTBFs for many software failures is challenging.
-```
 
-Available commands 
+Available Commands 
 ------------------
 Here are some common failures in Hadoop environments:
 ```
