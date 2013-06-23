@@ -6,13 +6,16 @@ Fault injection tool for hadoop cluster from yahoo anarchyape
 
 ********** Compilation ************
 
+```
 cd src/main/java
 download log4j.ar and commons-cli.jar
 
 javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 
+```
 *********** Running ************
 
+```
 java -cp .:log4j-1.4.12.jar apr/Main
 
 log file: /var/log/ape.log
@@ -36,10 +39,10 @@ tems are the likeliest to fail at any given moment. Based on
 previous failure statistics, users can develop an estimate of
 MTBF for various equipment failures; however, determining
 MTBFs for many software failures is challenging.
-
+```
 =============== Available commands ================
-Here are some common failures in Hadoop environments,
-proposed in [3]:
+Here are some common failures in Hadoop environments:
+```
 • Data node is killed
 • Application Master (AM) is killed
 • Application Master is suspended
@@ -61,3 +64,4 @@ proposed in [3]:
 • Mem hog consumes x% of memory
 • Corrupt ext3 data block on disk
 • Corrupt ext3 metadata block on disk
+```
