@@ -4,7 +4,8 @@ anarchyape
 Fault injection tool for hadoop cluster from yahoo anarchyape
 
 
-********** Compilation ************
+Compilation 
+-----------
 
 ```
 cd src/main/java
@@ -13,7 +14,8 @@ download log4j.ar and commons-cli.jar
 javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 
 ```
-*********** Running ************
+Running 
+-------
 
 ```
 java -cp .:log4j-1.4.12.jar apr/Main
@@ -40,7 +42,9 @@ previous failure statistics, users can develop an estimate of
 MTBF for various equipment failures; however, determining
 MTBFs for many software failures is challenging.
 ```
-=============== Available commands ================
+
+Available commands 
+------------------
 Here are some common failures in Hadoop environments:
 ```
 • Data node is killed
