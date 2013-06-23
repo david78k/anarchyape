@@ -1,4 +1,4 @@
 anarchyape
 ==========
 
-anarchyape for fault injection into hadoop cluster
+Fault injection tool for hadoop cluster from yahoo anarchyape
