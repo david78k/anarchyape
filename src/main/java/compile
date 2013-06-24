@@ -1,0 +1,1 @@
+javac -cp .:log4j.jar ape/Main.java

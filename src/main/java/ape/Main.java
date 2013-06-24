@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.ServiceLoader;
+import java.util.Arrays;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -105,7 +106,10 @@ public class Main
 		
 		// Use the CLI parser to attempt to parse the command into a series of Option objects
 		try {
+			System.out.println(Arrays.toString(args));
+			logger.info(Arrays.toString(args));
 			line = getCommand(args);
+			//System.out.println(line.toString());	
 		}
 		catch(MissingArgumentException e)
 		{
@@ -156,12 +160,17 @@ public class Main
 		//Find which option is cmd, which is -local/-remote, order might be disturbed
 		for(int k=0;k<options.length;k++)
 		{
+			System.out.println(options[k]);
+			logger.info(options[k]);
 			if(!options[k].getOpt().equals("v"))
 			{
-				if(options[k].getOpt()=="L"||options[k].getOpt()=="R")
+				if(options[k].getOpt()=="L"||options[k].getOpt()=="R") {
 					modeN = k;
+				}
 				else cmdN = k;
 			}
+		//	System.out.println(modeN);
+		//	System.out.println(cmdN);
 		}
 		
 		// If the version flag was in the command, print the version and exit
@@ -174,6 +183,12 @@ public class Main
 		
 		if(line.hasOption('h') || options.length < 1 || modeN==cmdN || modeN==-1|| cmdN==-1)
 		{
+			if(cmdN == -1) {
+				System.out.println("Failure commands were not specified.");
+				logger.info("Failure commands were not specified.");
+			}
+			System.out.println("Exiting ...");
+			logger.info("Exiting ...");
 			printHelp();
 			return;
 		}
