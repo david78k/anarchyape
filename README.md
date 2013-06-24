@@ -30,7 +30,7 @@ Running
 
 [Java]
 ```
-java -cp .:log4j-1.4.12.jar apr/Main
+java -cp .:log4j-1.4.12.jar ape/Main
 
 log file: /var/log/ape.log
 ```
@@ -82,3 +82,74 @@ Here are some common failures in Hadoop environments:
 • Corrupt ext3 data block on disk
 • Corrupt ext3 metadata block on disk
 ```
+[-h]
+[ option: h help  :: Displays this help menu ]
+Exiting ...
+usage: ape [options] ... <failure command>
+           options:
+ -c,--corrupt-file <file> <size> <offset>        Corrupt the file given
+                                                 the address as the first
+                                                 argument, size as the 2nd
+                                                 arg, and offset as the
+                                                 3rd argument
+ -C,--corrupt-block <meta/ord> <size> <offset>   Corrupt a random HDFS
+                                                 block file with a size in
+                                                 bytes as the 2nd arg and
+                                                 offset in bytes as the
+                                                 3rd argument
+ -d,--network-disconnect <time>                  Disconnect the network
+                                                 for a certain period of
+                                                 time specified in the
+                                                 argument, and then
+                                                 resumes
+ -e,--continue-node <NodeType>                   Continues a tasktracker
+                                                 or a datanode at the
+                                                 given hostname that has
+                                                 already been suspended
+ -F,--forkbomb                                   Hangs a host by executing
+                                                 a fork bomb
+ -h,--help                                       Displays this help menu
+ -k,--kill-node <nodetype>                       Kills a datanode,
+                                                 tasktracker, jobtracker,
+                                                 or namenode.
+ -L,--local                                      Run commands locally
+ -P,--panic                                      Forces a kernel panic and
+                                                 does not restart the
+                                                 system.
+ -p,--network-drop <percentage> <duration>       Drops a specified
+                                                 percentage of all inbound
+                                                 network packets for a
+                                                 duration specified in
+                                                 seconds.
+ -r,--remount                                    Remounts all filesystems
+                                                 as read-only
+ -R,--remote <HostnameList>                      Run commands remotely
+ -s,--suspend-node <NodeType>                    Suspends a tasktracker or
+                                                 a datanode at the given
+                                                 hostname
+ -S,--network-slow <delay> <duration>            Delay all network packet
+                                                 delivery by a specified
+                                                 amount of time (in
+                                                 milliseconds) for a
+                                                 period specified in
+                                                 seconds
+ -t,--touch                                      Touches a file called
+                                                 /tmp/foo.tst
+ -u,--udp-flood <hostname> <port> <duration>     Flood the target hostname
+                                                 with a DoS attack.  For
+                                                 proper effect, use the -R
+                                                 flag and designate more
+                                                 than one host.
+ -v,--verbose                                    Turn on verbose mode
+ -V,--version                                    Displays the version
+                                                 number
+command:
+ -fb <lambda> -k <lambda>	fork bomb
+ -kp <lambda> -k <lambda>	kernel panic
+ -r <lambda> -k <lambda>	remount root as read only
+ -kn <lambda> -k <lambda>	kill a node process
+ -dos <lambda> -k <lambda>	denial of service by launching 4 bombarding threads
+ -cb <lambda> -k <lambda>	corrupt a random HDFS block
+ -cf <lambda> -k <lambda>	corrupt a file at the given address
+ -nic <lambda> -k <lambda>	interface
+ -p <lambda> -k <lambda>	packet drop
