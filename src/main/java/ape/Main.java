@@ -160,8 +160,10 @@ public class Main
 		//Find which option is cmd, which is -local/-remote, order might be disturbed
 		for(int k=0;k<options.length;k++)
 		{
-			System.out.println(options[k]);
-			logger.info(options[k]);
+			if (VERBOSE) {
+				System.out.println(options[k]);
+				logger.info(options[k]);
+			}
 			if(!options[k].getOpt().equals("v"))
 			{
 				if(options[k].getOpt()=="L"||options[k].getOpt()=="R") {
@@ -169,8 +171,6 @@ public class Main
 				}
 				else cmdN = k;
 			}
-		//	System.out.println(modeN);
-		//	System.out.println(cmdN);
 		}
 		
 		// If the version flag was in the command, print the version and exit
@@ -342,6 +342,7 @@ public class Main
 	 */
 	public static void createOptions() 	
 	{
+		//System.out.println("creating options ...");
 		Options options = new Options();
 		options.addOption("h", "help", false, "Displays this help menu");
 		options.addOption("V", "version", false, "Displays the version number");
@@ -354,6 +355,7 @@ public class Main
 	    {
 	    	ApeCommand ac = iter.next();
 	    	apeCommands.addOption(ac.getOption());
+		//System.out.println(ac.getOption());
 	    }
 	    options.addOptionGroup(apeCommands);
 			
@@ -389,7 +391,17 @@ public class Main
 		
 		// Use the Apache CLI library's build in help dialog printer
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("ape", opts);
+		formatter.printHelp("ape [options] ... <failure command>\noptions:", opts);
+		System.out.println("command:");
+		System.out.println(" -fb <lambda> -k <lambda>\tfork bomb");
+		System.out.println(" -kp <lambda> -k <lambda>\tkernel panic");
+		System.out.println(" -r <lambda> -k <lambda>\tremount root as read only");
+		System.out.println(" -kn <lambda> -k <lambda>\tkill a node process");
+		System.out.println(" -dos <lambda> -k <lambda>\tdenial of service by launching 4 bombarding threads");
+		System.out.println(" -cb <lambda> -k <lambda>\tcorrupt a random HDFS block");
+		System.out.println(" -cf <lambda> -k <lambda>\tcorrupt a file at the given address");
+		System.out.println(" -nic <lambda> -k <lambda>\tinterface");
+		System.out.println(" -p <lambda> -k <lambda>\tpacket drop");
 	}
 
 	/**
