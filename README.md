@@ -82,9 +82,8 @@ Here are some common failures in Hadoop environments:
 • Corrupt ext3 data block on disk
 • Corrupt ext3 metadata block on disk
 ```
-[-h]
-[ option: h help  :: Displays this help menu ]
-Exiting ...
+Command line options:
+```
 usage: ape [options] ... <failure command>
            options:
  -c,--corrupt-file <file> <size> <offset>        Corrupt the file given
@@ -153,3 +152,4 @@ command:
  -cf <lambda> -k <lambda>	corrupt a file at the given address
  -nic <lambda> -k <lambda>	interface
  -p <lambda> -k <lambda>	packet drop
+```
