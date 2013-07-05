@@ -1,5 +1,7 @@
+java -jar ape.jar -h
 #java -cp .:log4j.jar ape/Main -L -v
-java -cp .:log4j.jar ape/Main --local
+#java -cp .:log4j.jar ape/Main -h
+#java -cp .:log4j.jar ape/Main --local -fb
 #java -cp .:log4j.jar ape/Main -R slaves
 #java -cp .:log4j.jar ape/Main -remote slaves -v
 #java -cp .:log4j.jar ape/Main -V

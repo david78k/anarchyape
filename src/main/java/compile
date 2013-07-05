@@ -1,1 +1,2 @@
-javac -cp .:log4j.jar ape/Main.java
+#javac -cp .:log4j.jar ape/Main.java
+javac -cp . ape/Main.java
