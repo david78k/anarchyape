@@ -7,6 +7,7 @@ Fault injection tool for hadoop cluster from yahoo anarchyape
 Compilation 
 -----------
 [Java]
+Required version: 1.7.0.21 or later
 ```
 cd src/main/java
 download log4j.ar and commons-cli.jar
