@@ -37,7 +37,6 @@ Running
 ./ape.pl [remote_ip_list_file]
 
 [Java]
-Local run:
 ```
 java -jar ape.jar [commands]
 
@@ -47,15 +46,26 @@ java -cp .:log4j-1.4.12.jar ape/Main
 log file: /var/log/ape.log
 ```
 
+(Local run)
+```
+java -jar ape.jar -L -S 100 5
+```
+injects slow network with delay 100 milliseconds for 5 seconds.
+
 (Remote run)
 Install pdsh:
 ```
 yum install pdsh
 apt-get install pdsh
 
-pdsh -Rssh -w cluser-ip-list.xml '/usr/local/bin/ape -L -S 100 5'
-
+java -jar ape.jar -R node1,node2,node3 -S 100 5
+creates a script to run on the remote hosts:
+pdsh -Rssh -w node1,node2,node3 '/usr/local/bin/ape -L -S 100 5'
 ```
+
+It seems not working as the remote hosts do no have /usr/local/bin/ape file.
+
+Remote nodes can be specified in XML format: cluster-ip-list.xml
 
 Currently, to create a scenario, the user constructs a shell
 script specifying the types of errors to be injected or failures to be simulated, one after another. A sample line in a
