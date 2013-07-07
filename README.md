@@ -32,6 +32,7 @@ Running
 [Java]
 ```
 java -jar ape.jar [commands]
+(old way)
 java -cp .:log4j-1.4.12.jar ape/Main
 
 log file: /var/log/ape.log
@@ -113,9 +114,7 @@ usage: ape [options] ... <failure command>
                                                  tasktracker, jobtracker,
                                                  or namenode.
  -L,--local                                      Run commands locally
- -P,--panic                                      Forces a kernel panic and
-                                                 does not restart the
-                                                 system.
+ -P,--panic                                      Forces a kernel panic and does not restart the system.
  -p,--network-drop <percentage> <duration>       Drops a specified
                                                  percentage of all inbound
                                                  network packets for a
