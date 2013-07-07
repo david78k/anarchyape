@@ -12,6 +12,13 @@ Required version: 1.7.0.21 or later
 cd src/main/java
 download log4j.ar and commons-cli.jar
 
+java -cp . ape/Main.java
+
+rm ape.jar
+
+jar cfm ape.jar META-INF/MANIFEST.MF ape META-INF/services org
+
+(old way)
 javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 ```
 
@@ -32,6 +39,7 @@ Running
 [Java]
 ```
 java -jar ape.jar [commands]
+
 (old way)
 java -cp .:log4j-1.4.12.jar ape/Main
 
