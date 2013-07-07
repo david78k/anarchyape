@@ -31,19 +31,19 @@ Running
 
 [Java]
 ```
+java -jar ape.jar [commands]
 java -cp .:log4j-1.4.12.jar ape/Main
 
 log file: /var/log/ape.log
 ```
 
 Currently, to create a scenario, the user constructs a shell
-script specifying the types of errors to be injected or fail-
-ures to be simulated, one after another. A sample line in a
+script specifying the types of errors to be injected or failures to be simulated, one after another. A sample line in a
 scenario file could be as follows:
 
 ```
-java -jar ape.jar -remote cluster-ip-list.xml -fb lambda -k lambda
-	where the -fb is a “Fork Bomb” injection, the -k is a “Kill
+java -jar ape.jar -remote cluster-ip-list.xml -F lambda -k lambda
+	where the -F is a “Fork Bomb” injection, the -k is a “Kill
 	One Node” command, and the lambda specifies the failure rates.
 ```
 Users can define lambda parameters by computing Mean
@@ -121,8 +121,7 @@ usage: ape [options] ... <failure command>
                                                  network packets for a
                                                  duration specified in
                                                  seconds.
- -r,--remount                                    Remounts all filesystems
-                                                 as read-only
+ -r,--remount                                    Remounts all filesystems as read-only
  -R,--remote <HostnameList>                      Run commands remotely
  -s,--suspend-node <NodeType>                    Suspends a tasktracker or
                                                  a datanode at the given
@@ -135,22 +134,13 @@ usage: ape [options] ... <failure command>
                                                  seconds
  -t,--touch                                      Touches a file called
                                                  /tmp/foo.tst
- -u,--udp-flood <hostname> <port> <duration>     Flood the target hostname
-                                                 with a DoS attack.  For
-                                                 proper effect, use the -R
+ -u,--udp-flood <hostname> <port> <duration>     Flood the target hostname with a DoS attack.
+                                                 For proper effect, use the -R
                                                  flag and designate more
                                                  than one host.
  -v,--verbose                                    Turn on verbose mode
- -V,--version                                    Displays the version
-                                                 number
+ -V,--version                                    Displays the version number
 command:
- -fb <lambda> -k <lambda>	fork bomb
- -kp <lambda> -k <lambda>	kernel panic
- -r <lambda> -k <lambda>	remount root as read only
- -kn <lambda> -k <lambda>	kill a node process
  -dos <lambda> -k <lambda>	denial of service by launching 4 bombarding threads
- -cb <lambda> -k <lambda>	corrupt a random HDFS block
- -cf <lambda> -k <lambda>	corrupt a file at the given address
  -nic <lambda> -k <lambda>	interface
- -p <lambda> -k <lambda>	packet drop
 ```
