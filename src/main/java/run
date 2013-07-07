@@ -9,9 +9,7 @@ java -jar ape.jar -R precise386 -S 100 30
 #java -jar ape.jar -R -F
 #java -jar ape.jar -R -S 1 1
 
-#java -cp .:log4j.jar ape/Main -L -v
 #java -cp .:log4j.jar ape/Main -h
-#java -cp .:log4j.jar ape/Main --local -F
 #java -cp .:log4j.jar ape/Main -R slaves
 #java -cp .:log4j.jar ape/Main -remote slaves -v
 #java -cp .:log4j.jar ape/Main -V
