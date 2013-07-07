@@ -127,11 +127,10 @@ usage: ape [options] ... <failure command>
                                                  bytes as the 2nd arg and
                                                  offset in bytes as the
                                                  3rd argument
- -d,--network-disconnect <time>                  Disconnect the network
+ -d,--network-disconnect <time in seconds>       Disconnect the network (eth0 only)
                                                  for a certain period of
-                                                 time specified in the
-                                                 argument, and then
-                                                 resumes
+                                                 time in seconds specified in the
+                                                 argument, and then resumes
  -e,--continue-node <NodeType>                   Continues a tasktracker
                                                  or a datanode at the
                                                  given hostname that has
@@ -145,16 +144,15 @@ usage: ape [options] ... <failure command>
  -L,--local                                      Run commands locally
  -P,--panic                                      Forces a kernel panic and does not restart the system.
  -p,--network-drop <percentage> <duration>       Drops a specified
-                                                 percentage of all inbound
+                                                 percentage of ALL inbound
                                                  network packets for a
-                                                 duration specified in
-                                                 seconds.
+                                                 duration specified in seconds.
  -r,--remount                                    Remounts all filesystems as read-only
  -R,--remote <HostnameList>                      Run commands remotely
  -s,--suspend-node <NodeType>                    Suspends a tasktracker or
                                                  a datanode at the given
                                                  hostname
- -S,--network-slow <delay> <duration>            Delay all network packet
+ -S,--network-slow <delay> <duration>            Delay ALL network packet
                                                  delivery by a specified
                                                  amount of time (in
                                                  milliseconds) for a
