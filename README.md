@@ -40,10 +40,10 @@ Running
 ```
 java -jar ape.jar [commands]
 
+log file: /var/log/ape.log
+
 (old way)
 java -cp .:log4j-1.4.12.jar ape/Main
-
-log file: /var/log/ape.log
 ```
 
 (Local run)
@@ -63,7 +63,7 @@ creates a script to run on the remote hosts:
 pdsh -Rssh -w node1,node2,node3 '/usr/local/bin/ape -L -S 100 5'
 ```
 
-It seems not working as the remote hosts do no have /usr/local/bin/ape file.
+It seems not working as the remote hosts do not have /usr/local/bin/ape file.
 
 Remote nodes can be specified in XML format: cluster-ip-list.xml
 
