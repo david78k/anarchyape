@@ -37,6 +37,7 @@ Running
 ./ape.pl [remote_ip_list_file]
 
 [Java]
+Local run:
 ```
 java -jar ape.jar [commands]
 
@@ -44,6 +45,16 @@ java -jar ape.jar [commands]
 java -cp .:log4j-1.4.12.jar ape/Main
 
 log file: /var/log/ape.log
+```
+
+(Remote run)
+Install pdsh:
+```
+yum install pdsh
+apt-get install pdsh
+
+pdsh -Rssh -w cluser-ip-list.xml '/usr/local/bin/ape -L -S 100 5'
+
 ```
 
 Currently, to create a scenario, the user constructs a shell
