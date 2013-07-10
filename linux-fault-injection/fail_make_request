@@ -3,6 +3,11 @@
 # Injects disk IO errors on devices permitted by setting
 # /sys/block/<device>/make-it-fail or
 # /sys/block/<device>/<partition>/make-it-fail. (generic_make_request())
+#
+# This causes the filesystem to be remounted as readonly,
+# if errors=remount-ro is set in /etc/fstab.
+# If so, the filesystem can only be recovered by a reboot.
+# Running 'mount -no remount,rw /' may not work.
 
 device=sda
 
