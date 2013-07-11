@@ -1,7 +1,7 @@
 # management server down
 service cloud-management stop
 # repair
-service cloud-management stop
+service cloud-management start
 
 # api server port blocked
 iptables -A INPUT -p tcp --dport 8080 -j DROP

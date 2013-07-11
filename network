@@ -1,0 +1,15 @@
+if=eth1
+delay=100.0ms
+sleep=10
+
+# delay 
+#tc qdisc add dev $if root netem delay $delay && sleep $sleep && tc qdisc del dev $if root netem
+#tc qdisc add dev eth0 root netem delay 100.0ms && sleep 30.0 && tc qdisc del dev eth0 root netem
+
+# delete
+#tc qdisc del dev $if root netem
+
+# block port
+#iptables -A INPUT -p tcp --dport 8080 -j DROP
+# unblock port
+iptables -D INPUT -p tcp --dport 8080 -j DROP
