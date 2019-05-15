@@ -39,10 +39,10 @@ public class NetworkSlowCommand extends ApeCommand{
 	public NetworkSlowCommand()
 	{
 		option = OptionBuilder
-		.withArgName("delay> <duration")
-		.hasArgs(2)
+		.withArgName("delay> <duration> <device")
+		.hasArgs(3)
 		.withValueSeparator()
-        .withDescription("Delay all network packet delivery by a specified amount of time (in milliseconds) for a period specified in seconds")
+        .withDescription("Delay all network packet delivery by a specified amount of time (in milliseconds) for a period specified in seconds on specified device")
         .withLongOpt("network-slow")
         .create("S");
 	}
@@ -59,20 +59,21 @@ public class NetworkSlowCommand extends ApeCommand{
 	
 	public boolean runImpl(String [] args) throws ParseException, IOException 
 	{
-		String arg1,arg2 = null;
+		String arg1,arg2,device = null;
 		arg1 = args[0];
 		arg2 = args[1];
+		device = args[2];
 		
 		double time = Double.parseDouble(arg1);
 		double period = Double.parseDouble(arg2);
-		
+
 		if(time<=0||period <=0)
 		{
 			System.err.println("Argument Not Positive");
 			return false;
 		}
 
-		if(!executecommand(time, period))
+		if(!executecommand(time, period, device))
 		{
 			System.err.println("Simulating Network Delay unsuccessful, turn on VERBOSE flag to check");
 			return false;
@@ -88,9 +89,9 @@ public class NetworkSlowCommand extends ApeCommand{
 	 * @return True if successful execution, false if an error occurred
 	 * @throws IOException
 	 */
-	private boolean executecommand(double time, double period) throws IOException
+	private boolean executecommand(double time, double period, String device) throws IOException
 	{
-		String cmd = "tc qdisc add dev eth0 root netem delay " + time + "ms && sleep "+period+" && tc qdisc del dev eth0 root netem";
+		String cmd = "tc qdisc add dev " + device + " root netem delay " + time + "ms && sleep "+period+" && tc qdisc del dev " + device + " root netem";
 		ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 		pb.redirectErrorStream(true);
 		Process p =  null;
@@ -112,7 +113,7 @@ public class NetworkSlowCommand extends ApeCommand{
 			{
 				System.err.println("Non-zero return code (" + p.exitValue() + ") when executing: '" + cmd + "'");
 
-				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev eth0 root netem");
+				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev " + device + " root netem");
 				Process ptmp = tmp2.start();
 				try {
 					if(ptmp.waitFor()==0)
@@ -122,7 +123,7 @@ public class NetworkSlowCommand extends ApeCommand{
 						System.out.println("Connection Resumed Failed");
 						return false;
 					}
-				} 
+				}
 				catch (InterruptedException e1) 
 				{
 					e1.printStackTrace();
@@ -137,7 +138,7 @@ public class NetworkSlowCommand extends ApeCommand{
 		catch (InterruptedException e) 
 		{
 			System.err.println("Executing Command catches an Interrupt, resume connection");
-			ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev eth0 root netem");
+			ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev " + device + " root netem");
 			Process ptmp = tmp2.start();
 			try {
 				if(ptmp.waitFor()==0)

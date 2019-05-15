@@ -42,9 +42,9 @@ public class NetworkDisconnectCommand extends ApeCommand
 	 */
 	public NetworkDisconnectCommand()
 	{
-		option = OptionBuilder.withArgName("time").hasArgs(1)
+		option = OptionBuilder.withArgName("time> <device").hasArgs(2)
 		.withValueSeparator()
-        .withDescription("Disconnect the network for a certain period of time specified in the argument, and then resumes")
+        .withDescription("Disconnect the network for a certain period of time specified in the argument, and then resumes on a specified device")
         .withLongOpt("network-disconnect")
         .create("d");
 	}
@@ -61,9 +61,10 @@ public class NetworkDisconnectCommand extends ApeCommand
 	
 	public boolean runImpl(String [] args) throws ParseException, IOException 
 	{
-		String argument = null;
+		String argument, device = null;
 		argument = args[0];
-		
+		device = args[1];
+
 		double time = Double.parseDouble(argument);
 		
 		if(time<=0)
@@ -73,7 +74,7 @@ public class NetworkDisconnectCommand extends ApeCommand
 			return false;
 		}
 
-		if(!executecommand(time))
+		if(!executecommand(time, device))
 		{
 			System.out.println("ERROR: Simulating network failure unsuccessful.");
 			Main.logger.info("ERROR: Simulating network failure unsuccessful.");
@@ -86,9 +87,9 @@ public class NetworkDisconnectCommand extends ApeCommand
 	/**
 	 * This method actually executes the command that would disconnect the network
 	 */
-	private boolean executecommand(double time) throws IOException
+	private boolean executecommand(double time, String device) throws IOException
 	{
-		String cmd = "ifdown eth0 && sleep " + time + " && /etc/init.d/network restart";
+		String cmd = "ifdown " + device + " && sleep " + time + " && /etc/init.d/networking restart";
 		ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 		pb.redirectErrorStream(true);
 		Process p =  null;
@@ -108,7 +109,7 @@ public class NetworkDisconnectCommand extends ApeCommand
 				System.out.println("ERROR: Non-zero return code (" + p.exitValue() + ") when executing: '" + cmd + "'");
 				Main.logger.info("ERROR: Non-zero return code (" + p.exitValue() + ") when executing: '" + cmd + "'");
 
-				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "/etc/init.d/network restart");
+				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "/etc/init.d/networking restart");
 				Process ptmp = tmp2.start();
 				try {
 					if(ptmp.waitFor()==0)
@@ -130,7 +131,7 @@ public class NetworkDisconnectCommand extends ApeCommand
 		catch (InterruptedException e) 
 		{
 			System.err.println("Executing Command catches an Interrupt, resume connection");
-			ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "/etc/init.d/network restart");
+			ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "/etc/init.d/networking restart");
 			Process ptmp = tmp2.start();
 			try {
 				if(ptmp.waitFor()==0)

@@ -6,23 +6,18 @@ Fault injection tool for hadoop cluster from yahoo anarchyape
 
 Compilation 
 -----------
-[Java]
-Required version: 1.7.0.21 or later
-```
-cd src/main/java
-download log4j.ar and commons-cli.jar
+1. Use IntelliJ
 
-java -cp . ape/Main.java
+   Select target `anarchy_ape[package]`,run the target, then you can get `anarchy_ape.jar` in the `target` directory.
 
-rm ape.jar
+2. Use Maven
 
-jar cfm ape.jar META-INF/MANIFEST.MF ape META-INF/services org
+   `mvn package`
 
-(old way)
-javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
-```
+### [Optional] Build perl library
 
 [Perl]
+
 ```
    perl Makefile.PL
    cpan -i JSON
@@ -33,27 +28,24 @@ javac -cp .:log4j-1.4.12.jar:commons-cli-1.2.jar ape/*.java
 
 Running 
 -------
-[Perl]
-./ape.pl [remote_ip_list_file]
-
 [Java]
+
 ```
 java -jar ape.jar [commands]
+```
 
 log file: /var/log/ape.log
 
-(old way)
-java -cp .:log4j-1.4.12.jar ape/Main
-```
+Example:
 
-(Local run)
 ```
 java -jar ape.jar -L -S 100 5
 ```
-injects slow network with delay 100 milliseconds for 5 seconds.
+Runs in the local and injects slow network with delay 100 milliseconds for 5 seconds.
 
 (Remote run)
 Install pdsh:
+
 ```
 yum install pdsh
 apt-get install pdsh
@@ -86,6 +78,9 @@ MTBFs for many software failures is challenging.
 
 [1] W. Torell and V. Avelar. Performing effective MTBF comparisons for data center infrastructure.
 http://www.apcmedia.com/salestools/ASTE-5ZYQF2_R1_EN.pdf.
+
+[Perl]
+./ape.pl [remote_ip_list_file]
 
 Available Commands 
 ------------------
@@ -127,10 +122,12 @@ usage: ape [options] ... <failure command>
                                                  bytes as the 2nd arg and
                                                  offset in bytes as the
                                                  3rd argument
- -d,--network-disconnect <time in seconds>       Disconnect the network (eth0 only)
+ -d,--network-disconnect <time in seconds> <device>
+ 																								 Disconnect the network
                                                  for a certain period of
                                                  time in seconds specified in the
-                                                 argument, and then resumes
+                                                 argument, and then resumes on the
+                                                 specified device
  -e,--continue-node <NodeType>                   Continues a tasktracker
                                                  or a datanode at the
                                                  given hostname that has
@@ -143,21 +140,25 @@ usage: ape [options] ... <failure command>
                                                  or namenode.
  -L,--local                                      Run commands locally
  -P,--panic                                      Forces a kernel panic and does not restart the system.
- -p,--network-drop <percentage> <duration>       Drops a specified
+ -p,--network-drop <percentage> <duration> <device>
+ 																								 Drops a specified
                                                  percentage of ALL inbound
                                                  network packets for a
-                                                 duration specified in seconds.
+                                                 duration specified in seconds on the
+                                                 specified device.
  -r,--remount                                    Remounts all filesystems as read-only
  -R,--remote <HostnameList>                      Run commands remotely
  -s,--suspend-node <NodeType>                    Suspends a tasktracker or
                                                  a datanode at the given
                                                  hostname
- -S,--network-slow <delay> <duration>            Delay ALL network packet
+ -S,--network-slow <delay> <duration> <device>           
+ 																								 Delay ALL network packet
                                                  delivery by a specified
                                                  amount of time (in
                                                  milliseconds) for a
                                                  period specified in
-                                                 seconds
+                                                 seconds on the
+                                                 specified device
  -t,--touch                                      Touches a file called
                                                  /tmp/foo.tst
  -u,--udp-flood <hostname> <port> <duration>     Flood the target hostname with a DoS attack.

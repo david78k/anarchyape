@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_anarchy_ape" default="compile.module.anarchy_ape">
+  <dirname property="module.anarchy_ape.basedir" file="${ant.file.module_anarchy_ape}"/>
+  
+  <property name="module.jdk.home.anarchy_ape" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.anarchy_ape" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.anarchy_ape" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.anarchy_ape" value="-encoding UTF-8 -source 5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="anarchy_ape.output.dir" value="${module.anarchy_ape.basedir}/target/classes"/>
+  <property name="anarchy_ape.testoutput.dir" value="${module.anarchy_ape.basedir}/target/test-classes"/>
+  
+  <path id="anarchy_ape.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="anarchy_ape.module.production.classpath">
+    <path refid="${module.jdk.classpath.anarchy_ape}"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:cli:1.0.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:lang:2.1.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:logging:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="anarchy_ape.runtime.production.module.classpath">
+    <pathelement location="${anarchy_ape.output.dir}"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:cli:1.0.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:lang:2.1.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:logging:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="anarchy_ape.module.classpath">
+    <path refid="${module.jdk.classpath.anarchy_ape}"/>
+    <pathelement location="${anarchy_ape.output.dir}"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:cli:1.0.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:lang:2.1.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:logging:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="anarchy_ape.runtime.module.classpath">
+    <pathelement location="${anarchy_ape.testoutput.dir}"/>
+    <pathelement location="${anarchy_ape.output.dir}"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:cli:1.0.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:lang:2.1.0.classpath"/>
+    <path refid="library.maven:_org.mod4j.org.apache.commons:logging:1.0.4.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.anarchy_ape">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.anarchy_ape">
+    <patternset refid="excluded.from.module.anarchy_ape"/>
+  </patternset>
+  
+  <path id="anarchy_ape.module.sourcepath">
+    <dirset dir="${module.anarchy_ape.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="anarchy_ape.module.test.sourcepath">
+    <dirset dir="${module.anarchy_ape.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.anarchy_ape" depends="compile.module.anarchy_ape.production,compile.module.anarchy_ape.tests" description="Compile module anarchy_ape"/>
+  
+  <target name="compile.module.anarchy_ape.production" depends="register.custom.compilers" description="Compile module anarchy_ape; production classes">
+    <mkdir dir="${anarchy_ape.output.dir}"/>
+    <javac2 destdir="${anarchy_ape.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.anarchy_ape}/javac">
+      <compilerarg line="${compiler.args.anarchy_ape}"/>
+      <bootclasspath refid="anarchy_ape.module.bootclasspath"/>
+      <classpath refid="anarchy_ape.module.production.classpath"/>
+      <src refid="anarchy_ape.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.anarchy_ape"/>
+    </javac2>
+    
+    <copy todir="${anarchy_ape.output.dir}">
+      <fileset dir="${module.anarchy_ape.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.anarchy_ape.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.anarchy_ape.tests" depends="register.custom.compilers,compile.module.anarchy_ape.production" description="compile module anarchy_ape; test classes" unless="skip.tests">
+    <mkdir dir="${anarchy_ape.testoutput.dir}"/>
+    <javac2 destdir="${anarchy_ape.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.anarchy_ape}/javac">
+      <compilerarg line="${compiler.args.anarchy_ape}"/>
+      <bootclasspath refid="anarchy_ape.module.bootclasspath"/>
+      <classpath refid="anarchy_ape.module.classpath"/>
+      <src refid="anarchy_ape.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.anarchy_ape"/>
+    </javac2>
+    
+    <copy todir="${anarchy_ape.testoutput.dir}">
+      <fileset dir="${module.anarchy_ape.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.anarchy_ape" description="cleanup module">
+    <delete dir="${anarchy_ape.output.dir}"/>
+    <delete dir="${anarchy_ape.testoutput.dir}"/>
+  </target>
+</project>

@@ -56,7 +56,6 @@ import org.apache.log4j.PropertyConfigurator;
 public class Main 
 {
 	public static boolean VERBOSE=true;
-	private static Options opts;
 	private static CommandLine line;
 	// If the version is modified here, it must also be modified in pom.xml
 	private static double VERSION = 0.2;
@@ -64,8 +63,8 @@ public class Main
 	private static int modeN = -1;
 	private static ServiceLoader<ApeCommand> loader = ServiceLoader.load(ApeCommand.class);
 	private static int MAX_OPTION_LENGTH;
-
 	public static final Logger logger = Logger.getLogger(Main.class.getName());
+	private static Options opts = createOptions();
 
 	public static void main(String[] args) 
 	{
@@ -73,7 +72,7 @@ public class Main
 		Properties ppt = new Properties();
 		ppt.setProperty("log4j.rootLogger", "INFO, appender1");
 		ppt.setProperty("log4j.appender.appender1", "org.apache.log4j.DailyRollingFileAppender");
-		ppt.setProperty("log4j.appender.appender1.File", "/var/log/ape.log");
+		ppt.setProperty("log4j.appender.appender1.File", "/tmp/anarchy_ape.log");
 		ppt.setProperty("log4j.appender.appender1.DatePattern", ".yyyy-MM-dd");
 		ppt.setProperty("log4j.appender.appender1.layout","org.apache.log4j.PatternLayout");
 
@@ -340,7 +339,7 @@ public class Main
 	/**
 	 * This method generates all the options, and stores them in opts
 	 */
-	public static void createOptions() 	
+	public static Options createOptions()
 	{
 		//System.out.println("creating options ...");
 		Options options = new Options();
@@ -365,7 +364,7 @@ public class Main
 	    remoteOrLocal.addOption(OptionBuilder.withArgName("Command").withValueSeparator().withDescription("Run commands locally").withLongOpt("local").create("L"));
 	    options.addOptionGroup(remoteOrLocal);
 	    
-	    opts=options;
+	    return options;
 	}
 	
 	

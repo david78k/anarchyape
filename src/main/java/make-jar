@@ -1,6 +1,0 @@
-./compile
-
-rm ape.jar
-
-#jar cfm ape.jar META-INF/MANIFEST.MF ape META-INF/services commons-cli-1.2.jar
-jar cfm ape.jar META-INF/MANIFEST.MF ape META-INF/services org
