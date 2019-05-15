@@ -26,7 +26,10 @@
         <buildtype>release</buildtype>
         <interactive>false</interactive>
         <manifest.file>src/main/resources/META-INF/MANIFEST.MF</manifest.file>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
 
     <dependencies>
         <dependency>
@@ -65,7 +68,7 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[1.5,)</version>
+                                    <version>[1.8,)</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
@@ -97,7 +100,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>ape.Main</Main-Class>
-                                        <Build-Number>161</Build-Number>
+                                        <Build-Number>181</Build-Number>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>

@@ -39,10 +39,10 @@ public class NetworkDropPacketsCommand extends ApeCommand
 	public NetworkDropPacketsCommand()
 	{
 		option = OptionBuilder
-		.withArgName("percentage> <duration")
-		.hasArgs(2)
+		.withArgName("percentage> <duration> <device")
+		.hasArgs(3)
 		.withValueSeparator()
-        .withDescription("Drops a specified percentage of all inbound network packets for a duration specified in seconds.")
+        .withDescription("Drops a specified percentage of all inbound network packets for a duration specified in seconds on a specified device.")
         .withLongOpt("network-drop")
         .create("p");
 	}
@@ -59,10 +59,11 @@ public class NetworkDropPacketsCommand extends ApeCommand
 
 	public boolean runImpl(String [] args) throws ParseException, IOException 
 	{
-		String arg1,arg2 = null;
+		String arg1,arg2, device = null;
 		arg1 = args[0];
 		arg2 = args[1];
-		
+		device = args[1];
+
 		double percent = Double.parseDouble(arg1);
 		double period = Double.parseDouble(arg2);
 
@@ -73,7 +74,7 @@ public class NetworkDropPacketsCommand extends ApeCommand
 			return false;
 		}
 
-		if(!executecommand(percent, period))
+		if(!executecommand(percent, period, device))
 		{
 			System.err.println("Simulating Network Dropping Packets unsuccessful, turn on VERBOSE flag to check");
 			return false;
@@ -89,9 +90,9 @@ public class NetworkDropPacketsCommand extends ApeCommand
 	 * @return True if the execution was successful, false if an error occurred 
 	 * @throws IOException
 	 */
-	private boolean executecommand(double percent, double period) throws IOException
+	private boolean executecommand(double percent, double period, String device) throws IOException
 	{
-		String cmd = "tc qdisc add dev eth0 root netem loss " + percent + "% && sleep " + period + " && tc qdisc del dev eth0 root netem";
+		String cmd = "tc qdisc add dev " + device + " root netem loss " + percent + "% && sleep " + period + " && tc qdisc del dev " + device + " root netem";
 		ProcessBuilder pb = new ProcessBuilder("bash", "-c", cmd);
 		pb.redirectErrorStream(true);
 		Process p =  null;
@@ -111,7 +112,7 @@ public class NetworkDropPacketsCommand extends ApeCommand
 			{
 				System.err.println("Non-zero return code (" + p.exitValue() + ") when executing: '" + cmd + "'");
 
-				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev eth0 root netem");
+				ProcessBuilder tmp2 = new ProcessBuilder("bash", "-c", "tc qdisc del dev " + device + " root netem");
 				Process ptmp = tmp2.start();
 				if(ptmp.waitFor()==0)
 					System.out.println("Connection resumed");

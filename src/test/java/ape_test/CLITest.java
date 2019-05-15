@@ -43,7 +43,7 @@ public class CLITest extends TestCase
 		theArgs[0] = "-h";
 		Main.main(theArgs);
 		System.setOut(originalOut);
-		assertEquals("usage: ape", (os.toString()).substring(0, 10));
+		assertEquals("usage: ape [options] ... <failure command>", (os.toString()).split("\\n")[3]);
 	}
 	
 	public void testVersionPrint()
@@ -56,7 +56,10 @@ public class CLITest extends TestCase
 		String[] theArgs = new String[1];
 		theArgs[0] = "-V";
 		Main.main(theArgs);
-		assertEquals("ChaosMonkey version: " + Main.getVersion() + "\n", os.toString());
+		String expected = "[-V]\n" +
+				"[ option: V version  :: Displays the version number ]\n" +
+				"ChaosMonkey version: ";
+		assertEquals(expected + Main.getVersion() + "\n", os.toString());
 		
 		System.setOut(originalOut);
 	}
@@ -74,15 +77,15 @@ public class CLITest extends TestCase
 		Main.createOptions();
 		Options opts = Main.getOptions();
 		
-		assertEquals(opts.hasOption("-h"), true);
+		assertTrue(opts.hasOption("-h"));
 	}
 	
 	public void testVersionOption()
 	{
 		Main.createOptions();
 		Options opts = Main.getOptions();
-		
-		assertEquals(opts.hasOption("-v"), true);
+
+		assertTrue(opts.hasOption("-v"));
 	}
 	
 	public void testCommandLineGet()
